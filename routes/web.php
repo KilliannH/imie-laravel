@@ -18,6 +18,6 @@ Route::get('/', function () {
 Route::get('email-register', 'AuthController@emailRegister');
 
 Route::get('/connect', 'AuthController@connect');
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');

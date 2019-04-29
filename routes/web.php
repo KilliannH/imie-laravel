@@ -16,3 +16,5 @@ Route::get('/', function () {
 });
 
 Route::get('email-register', 'AuthController@registerEmail');
+
+Route::get('/connect', 'AuthController@connect');

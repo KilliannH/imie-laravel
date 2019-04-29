@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 class AuthController extends Controller
 {
 
-    public function registerEmail(){
-        return view('auth.register-email');
+    public function emailRegister(){
+        return view('auth.email-register');
     }
 
     public function connect() {

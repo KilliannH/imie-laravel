@@ -17,7 +17,7 @@ class CreateTweetsTable extends Migration
             $table->bigIncrements('id');
             $table->text('content');
             $table->date('publishDate');
-            $table->text('tweet_id');
+            $table->text('tweet_id')->nullable();
             $table->boolean('sent');
             $table->integer('user_id')->unsigned(); 
         });

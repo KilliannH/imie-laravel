@@ -15,8 +15,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('email-register', 'AuthController@emailRegister');
-
 Route::get('/connect', 'AuthController@connect');
 
 Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider');

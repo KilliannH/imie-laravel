@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Services\TweetService;
 use App\Tweet;
+use App\User;
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 

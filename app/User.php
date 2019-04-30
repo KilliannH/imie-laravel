@@ -29,6 +29,6 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     function tweets() {
-        $this->hasMany("App\Tweet");
+        return $this->hasMany("App\Tweet");
     }
 }

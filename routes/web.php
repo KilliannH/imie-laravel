@@ -20,6 +20,9 @@ Route::get('/connect', 'AuthController@connect');
 Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider');
 Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
 
+Route::get('email-register', 'Auth\RegisterController@emailRegister');
+Route::post('email-register-post', 'Auth\RegisterController@emailRegisterPost')->name('email-register-post');
+
 Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');

@@ -16,9 +16,9 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'email',
+        'id' ,'name', 'email', 'token', 'token_secret'
     ];
-    
+
     /**
      * The attributes that should be cast to native types.
      *

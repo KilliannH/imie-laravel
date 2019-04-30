@@ -7,11 +7,11 @@ use Illuminate\Http\Request;
 
 class TweetController extends Controller
 {
-    public $tweetService;
+    private $tweetService;
 
-    public function __construct()
+    public function __construct(TweetService $tweetService)
     {
-        $this->tweetService = new TweetService();
+        $this->tweetService = $tweetService;
     }
 
     public function getTweets() {

@@ -67,7 +67,6 @@ class RegisterController extends Controller
      */
     protected function create($data)
     {
-        // dd($data);
         return User::create([
             'id' => $data['id'],
             'name' => $data['name'],
@@ -90,7 +89,8 @@ class RegisterController extends Controller
     public function emailRegisterPost(Request $request) {
         $data = $request->request->all();
         $this->create($data);
-        echo('utilisateur créé');
+        echo('Utilisateur créé');
+        // return redirect('home');
     }
 
 }

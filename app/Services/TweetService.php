@@ -16,6 +16,7 @@ class TweetService
         $tweet->publishDate = $request->input('publishDate');
         $tweet->sent = false;
 
+        // considering we only use twitter for login
         $provider = 'twitter';
         $connectedUser = Socialite::driver($provider)->user();
 

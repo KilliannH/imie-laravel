@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Tweet;
 use Laravel\Socialite\Facades\Socialite;
 
-class TweeterService
+class TweetService
 {
 
     public function postTweet(Request $request) {
@@ -59,5 +59,14 @@ class TweeterService
 
         $tweet->save();
         return response()->json(['tweet' => $tweet], 200);
+    }
+
+    public function deleteTweet($id) {
+        $tweet = Tweet::find($id)->first();
+        if(!$tweet) {
+            return response()->json(['message' => 'Document not found'], 404);
+        }
+        $tweet->delete();
+        return response()->json(['message' => 'Tweet deleted'], 200);
     }
 }

@@ -12,7 +12,7 @@ class Tweetcommand extends Command
      *
      * @var string
      */
-    protected $signature = 'Tweetcommand';
+    protected $signature = 'tweetcommand';
 
     /**
      * The console command description.
@@ -41,5 +41,12 @@ class Tweetcommand extends Command
     public function handle()
     {
         $tweets = $this->tweetService->getTweets();
+
+        foreach ($tweets as $tweet) {
+            dd($tweet);
+            //if (!$tweet->sent) {
+
+            //}
+        }
     }
 }

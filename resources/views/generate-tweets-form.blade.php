@@ -9,7 +9,6 @@
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('generate-tweets-post') }}">
-                        @csrf
 
                         <div class="form-group row">
                             <label for="number" class="col-md-4 col-form-label text-md-right">{{ __('Nombre') }}</label>

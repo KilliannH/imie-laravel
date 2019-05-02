@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Services\TweetService;
 use Illuminate\Console\Command;
 use Mikemike\Spinner\Spinner;
 
@@ -42,23 +43,16 @@ class GenerateTweet extends Command
 
         if (!is_numeric($number)) {
             $this->error('Veuillez renseigner un nombre supérieur ou égal à 1.');
-            return [];
+            return;
         } else if (intval($number) < 1) {
             $this->error('Veuillez renseigner un nombre suoérieur ou égal à 1.');
-            return [];
+            return;
         }
 
-        $spinner = new Spinner();
-        $string = 'Hey {Marin|Alexis|Ayoub|Thomas|Elies}, why are you {working|fucking|eating|sitting|driving} ? Go into your {wife|house|car|cat|bedroom} now !';
-
-        $tweets = array();
-        for ($i = 0; $i < $number; $i++) {
-            $tweets[] = $spinner->process($string);
-        }
+        $service = new TweetService();
+        $service->generateRandomTweets($number);
 
         $this->info($number . ' tweet(s) generated');
-        return $tweets;
-
 
     }
 }

@@ -41,5 +41,21 @@
             </div>
         </div>
     </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Dashboard</div>
+
+                <div class="card-body">
+                    @foreach ($tweets as $tweet)
+                        <p>Contenu : <b>{{ $tweet->content }}</b></p>
+                        <p>Date de publication : <b class="{{$tweet->publishDate < $now && !$tweet->sent ? 'text-danger' : ''}}">{{ (new DateTime($tweet->publishDate))->format('d-m-Y')}}</b></p>
+                        <p>Statut : <b>{{ $tweet->sent ? 'envoyé' : 'à envoyer' }}</b></p>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection

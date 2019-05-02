@@ -44,7 +44,7 @@ class TweetController extends Controller
         $newTweet->user()->associate($user);
         $newTweet->save();
 
-        return response()->json(['tweet' => $newTweet], 201);
+        return redirect()->route('tweet-details', $newTweet->id);
     }
 
     // neither here

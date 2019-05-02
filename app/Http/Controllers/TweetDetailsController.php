@@ -5,16 +5,10 @@ namespace App\Http\Controllers;
 use App\Services\TweetService;
 use DateTime;
 use Illuminate\Http\Request;
-use App\Tweet;
 
-class DashboardController extends Controller
+class TweetDetailsController extends Controller
 {
     private $tweetservice;
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct(TweetService $tweetservice)
     {
         $this->middleware('auth');
@@ -26,10 +20,12 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        $tweets = $this->tweetservice->getTweets();
+        $id = $request->route('id');
+        $tweet = $this->tweetservice->getTweet($id);
         $now = new DateTime();
-        return view('home', ['tweets' => $tweets, 'now' => $now]);
+
+        return view('tweet-details', ['tweet' => $tweet, 'now' => $now]);
     }
 }

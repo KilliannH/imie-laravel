@@ -33,26 +33,17 @@ class TweetController extends Controller
         return response()->json($response, 200);
     }
 
-    // we do not use the service here
-    // you cannot post if you're not authenticated
     public function postTweet(Request $request) {
-        dd($request);
-        $newTweet = new Tweet();
-        $newTweet->content = $request->input('content');
-        $newTweet->publishDate = $request->input('publishDate');
-        $newTweet->sent = false;
+        $user = auth()->user();
 
-        $provider = 'twitter';
-        $connectedUser = Socialite::driver($provider)->user();
-
-        $user = User::find($connectedUser->id);
-
-        if(!$user) {
-            return response()->json(['message' => 'User not found'], 404);
-        }
+		$newTweet = new Tweet([
+			'content' => $request->content,
+            'sent' => false
+        ]);
 
         $newTweet->user()->associate($user);
         $newTweet->save();
+
         return response()->json(['tweet' => $newTweet], 201);
     }
 

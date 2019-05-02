@@ -35,7 +35,8 @@ class TweetController extends Controller
 
     // we do not use the service here
     // you cannot post if you're not authenticated
-    public function  postTweet(Request $request) {
+    public function postTweet(Request $request) {
+        dd($request);
         $newTweet = new Tweet();
         $newTweet->content = $request->input('content');
         $newTweet->publishDate = $request->input('publishDate');
@@ -56,7 +57,7 @@ class TweetController extends Controller
     }
 
     // neither here
-    public function  putTweet(Request $request, $id) {
+    public function putTweet(Request $request, $id) {
         $editedTweet = Tweet::find($id)->first();
         if(!$editedTweet) {
             return response()->json(['message' => 'Document not found'], 404);

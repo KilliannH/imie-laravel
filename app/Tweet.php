@@ -11,4 +11,8 @@ class Tweet extends Model
     function user() {
         return $this->belongsTo("App\User");
     }
+
+    protected $fillable = [
+         'content', 'publishDate', 'user_id', 'tweet_id', 'sent'
+    ];
 }

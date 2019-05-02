@@ -10,10 +10,10 @@ use Laravel\Socialite\Facades\Socialite;
 class TweetService
 {
 
-    public function postTweet(Request $request) {
+    public function createTweet($newTweet) {
         $tweet = new Tweet();
-        $tweet->content = $request->input('content');
-        $tweet->publishDate = $request->input('publishDate');
+        $tweet->content = $newTweet->content;
+        $tweet->publishDate = $newTweet->publishDate;
         $tweet->sent = false;
 
         // considering we only use twitter for login
@@ -23,51 +23,48 @@ class TweetService
         $user = User::find($connectedUser->id);
 
         if(!$user) {
-            return response()->json(['message' => 'User not found'], 404);
+            return null;
         }
 
         $tweet->user()->associate($user);
         $tweet->save();
-        return response()->json(['tweet' => $tweet], 201);
+        return $tweet;
     }
 
     public function getTweets() {
         $tweets = Tweet::all();
-        $response = ['tweets' => $tweets];
-
-        return response()->json($response, 200);
+        return $tweets;
     }
 
     public function getTweet($id) {
         $tweet = Tweet::find($id)->first();
 
         if(!$tweet) {
-            return response()->json(['message' => 'Document not found'], 404);
+            return null;
         }
-        $response = ['tweet' => $tweet];
-        return response()->json($response, 200);
+        return $tweet;
     }
 
-    public function putTweet(Request $request, $id) {
+    public function editTweet($id, $editedTweet) {
         $tweet = Tweet::find($id)->first();
         if(!$tweet) {
-            return response()->json(['message' => 'Document not found'], 404);
+            return null;
         }
-        $tweet->content = $request->input('content');
-        $tweet->publishDate = $request->input('publishDate');
-        $tweet->sent = $request->input('sent');
-        $tweet->tweet_id = $request->input('tweet_id');
+        $tweet->content = $editedTweet->content;
+        $tweet->publishDate = $editedTweet->publishDate;
+        $tweet->sent = $editedTweet->sent;
+        $tweet->tweet_id = $editedTweet->tweet_id;
 
         $tweet->save();
-        return response()->json(['tweet' => $tweet], 200);
+        return $tweet;
     }
 
-    public function deleteTweet($id) {
+    public function removeTweet($id) {
         $tweet = Tweet::find($id)->first();
         if(!$tweet) {
-            return response()->json(['message' => 'Document not found'], 404);
+            return null;
         }
         $tweet->delete();
-        return response()->json(['message' => 'Tweet deleted'], 200);
+        return $tweet;
     }
 }

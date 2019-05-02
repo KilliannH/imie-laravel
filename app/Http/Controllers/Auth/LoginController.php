@@ -56,19 +56,46 @@ class LoginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function handleProviderCallback($provider)
-    {
-        $user = Socialite::driver($provider)->user();
-        $userData = [
-            'token' => $user->token,
-            'tokenSecret' => $user->tokenSecret,
-            'id' => $user->id,
-            'name' => $user->name
-        ];
-        session($userData);
-        return redirect()->action('Auth\LoginController@emailRegister');
-    }
+    // public function handleProviderCallback($provider)
+    // {
+    //     $user = Socialite::driver($provider)->user();
+    //     $userData = [
+    //         'token' => $user->token,
+    //         'tokenSecret' => $user->tokenSecret,
+    //         'id' => $user->id,
+    //         'name' => $user->name
+    //     ];
+    //     session($userData);
+    //     return redirect()->action('Auth\LoginController@emailRegister');
+    // }
 
+    public function handleProviderCallback(string $provider)
+    {
+        try {
+            $user = Socialite::driver($provider)->user();
+
+            $account = User::where([
+                'provider' => $provider,
+                'id' => $user->id
+            ])->first();
+
+            if(!$account) {
+                return view('auth.email-register', [
+                    'name' => $user->name,
+                    'id' => $user->id,
+                    'provider' => $provider,
+                    'token' => $user->token,
+                    'tokenSecret' => $user->tokenSecret,
+                ]);
+            } else {
+                auth()->login($account);
+
+                return redirect()->action('DashboardController@index');
+            }
+        } catch (CredentialsException $e) {
+            return redirect()->to('login');
+        }
+    }
     /**
      * Get a validator for an incoming registration request.
      *
@@ -83,7 +110,6 @@ class LoginController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'token' => ['required', 'string', 'max:255'],
             'tokenSecret' => ['required', 'string', 'max:255'],
-
         ]);
     }
 
@@ -99,27 +125,22 @@ class LoginController extends Controller
             'id' => $data['id'],
             'name' => $data['name'],
             'email' => $data['email'],
+            'provider' => $data['provider'],
             'token' => $data['token'],
             'token_secret' => $data['tokenSecret'],
         ]);
     }
 
-    public function emailRegister(Request $request) {
-        return view('auth.email-register', [
-            'id' => session('id'),
-            'name' => session('name'),
-            'email' => session('email'),
-            'token' => session('token'),
-            'tokenSecret' => session('tokenSecret'),
-        ]);
-    }
-
     public function emailRegisterPost(Request $request) {
-        $data = $request->request->all();
-        $user = $this->create($data);
-        // dd($user);
+        $values = $request->request->all();
+
+        /**
+         * @var $user User
+         */
+        $user = $this->create($values);
+
         auth()->login($user);
-        // dd(auth()->user());
+
         return redirect()->action('DashboardController@index');
     }
 }

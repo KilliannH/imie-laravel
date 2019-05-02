@@ -27,6 +27,7 @@
                                 <input type="hidden" value="{{ $tokenSecret }}" name="tokenSecret">
                                 <input type="hidden" value="{{ $id }}" name="id">
                                 <input type="hidden" value="{{ $name }}" name="name">
+                                <input type="hidden" value="{{ $provider }}" name="provider">
                             </div>
                         </div>
 

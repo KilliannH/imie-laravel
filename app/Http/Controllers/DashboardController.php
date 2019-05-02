@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Tweet;
 
 class DashboardController extends Controller
 {
@@ -28,6 +29,15 @@ class DashboardController extends Controller
 
     public function postNewTweet(Request $request)
     {
-        dd($request);
+        $user = auth()->user();
+        $newTweet = new Tweet([
+            'content' => $request->content,
+            'user_id' => $user->id,
+            'tweet_id' => 1,
+            'sent' => false
+        ]);
+        $newTweet->save();
+        echo($newTweet);
+        return 'Tweet sauvegardé!';
     }
 }

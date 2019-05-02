@@ -1064,6 +1064,50 @@
             "time": "2016-08-17T00:36:58+00:00"
         },
         {
+            "name": "mikemike/spinner",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mikemike/spinner.git",
+                "reference": "5bf8b1b534eac9fa7ecb214c244c8ff16d606589"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mikemike/spinner/zipball/5bf8b1b534eac9fa7ecb214c244c8ff16d606589",
+                "reference": "5bf8b1b534eac9fa7ecb214c244c8ff16d606589",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Mikemike\\Spinner\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mike Griffiths",
+                    "email": "mgriffiths@gmail.com"
+                }
+            ],
+            "description": "A Laravel package to spin content.",
+            "keywords": [
+                "laravel",
+                "spin",
+                "spinner",
+                "spinning",
+                "spintax",
+                "spyntax"
+            ],
+            "time": "2017-04-29T13:53:39+00:00"
+        },
+        {
             "name": "monolog/monolog",
             "version": "1.24.0",
             "source": {
@@ -4887,7 +4931,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "mikemike/spinner": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

@@ -26,3 +26,5 @@ Route::post('email-register-post', 'Auth\LoginController@emailRegisterPost')->na
 Route::post('post-new-tweet', 'DashboardController@postNewTweet')->name('post-new-tweet');
 // Route::post('post-tweet', 'TweetController@postTweet')->name('post-tweet');
 Route::get('/home', 'DashboardController@index');
+
+Route::get('generate-tweets', 'GenerateTweetsController@form')->name('generate-tweets');

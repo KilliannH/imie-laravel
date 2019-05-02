@@ -3,31 +3,35 @@
 
 namespace App\Services;
 
-use Illuminate\Http\Request;
+
 use App\Tweet;
+use App\User;
 use Laravel\Socialite\Facades\Socialite;
+use Mikemike\Spinner\Spinner;
 
 class TweetService
 {
 
-    public function createTweet($newTweet) {
-        $tweet = new Tweet();
-        $tweet->content = $newTweet->content;
-        $tweet->publishDate = $newTweet->publishDate;
-        $tweet->sent = false;
+    public function createTweet($content, $publishDate) {
 
         // considering we only use twitter for login
         $provider = 'twitter';
         $connectedUser = Socialite::driver($provider)->user();
-
         $user = User::find($connectedUser->id);
+
+        $tweet = Tweet::create([
+            'content' => $content,
+            'publishDate' => $publishDate,
+            'sent' => false,
+            'user_id' => 'test'
+        ]);
 
         if(!$user) {
             return null;
         }
 
-        $tweet->user()->associate($user);
-        $tweet->save();
+       /* $tweet->user()->associate($user);
+        $tweet->save();*/
         return $tweet;
     }
 
@@ -66,5 +70,18 @@ class TweetService
         }
         $tweet->delete();
         return $tweet;
+    }
+
+    public static function generateRandomTweets($number) {
+
+        $spinner = new Spinner();
+        $string = 'Hey {Marin|Alexis|Ayoub|Thomas|Elies}, why are you {working|fucking|eating|sitting|driving} ? Go into your {wife|house|car|cat|bedroom} now !';
+
+        $tweets = array();
+        for ($i = 0; $i < $number; $i++) {
+            $tweetContent = $spinner->process($string);
+            $tweets[] = $tweetContent;
+        }
+        return $tweets;
     }
 }

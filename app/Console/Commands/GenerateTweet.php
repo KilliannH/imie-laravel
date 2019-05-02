@@ -39,7 +39,7 @@ class GenerateTweet extends Command
      */
     public function handle()
     {
-        $number = $this->ask('Nombre de tweets à générer ?');
+        $number = $this->ask('Nombre de tweets à générer ');
 
         if (!is_numeric($number)) {
             $this->error('Veuillez renseigner un nombre supérieur ou égal à 1.');

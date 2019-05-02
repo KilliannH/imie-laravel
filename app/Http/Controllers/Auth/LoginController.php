@@ -76,13 +76,13 @@ class LoginController extends Controller
 
             $account = User::where([
                 'provider' => $provider,
-                'id' => $user->id
+                'provider_id' => $user->id
             ])->first();
 
             if(!$account) {
                 return view('auth.email-register', [
                     'name' => $user->name,
-                    'id' => $user->id,
+                    'provider_id' => $user->id,
                     'provider' => $provider,
                     'token' => $user->token,
                     'tokenSecret' => $user->tokenSecret,
@@ -122,7 +122,7 @@ class LoginController extends Controller
     protected function create($data)
     {
         return User::create([
-            'id' => $data['id'],
+            'provider_id' => $data['provider_id'],
             'name' => $data['name'],
             'email' => $data['email'],
             'provider' => $data['provider'],

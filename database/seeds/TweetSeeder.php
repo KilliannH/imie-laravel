@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Faker\Generator as Faker;
+use App\Tweet;
 
 class TweetSeeder extends Seeder
 {
@@ -10,22 +11,10 @@ class TweetSeeder extends Seeder
      *
      * @return void
      */
-    public function run(Faker $faker)
+    public function run()
     {
-
-        // Create Tweets
-        return factory(App\Tweet::class, 80)->make()->each(function($tweet) use($faker) {
-
-            $rand = rand(0, 1);
-
-            if($rand == 0) {
-                $datesRange = [null, '-1 week'];
-            } else {
-                $datesRange = ['+1 week', '+1 month'];
-            }
-
-            $tweet["publishDate"] = $faker->dateTimeBetween($datesRange[0], $datesRange[1]);
-            $tweet->save();
+        factory(App\User::class, 1)->create()->each(function($user){
+            factory(App\Tweet::class, 3)->create(['user_id'=>$user['id']]);
         });
     }
 }

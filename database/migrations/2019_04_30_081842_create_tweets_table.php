@@ -16,13 +16,13 @@ class CreateTweetsTable extends Migration
         Schema::create('tweets', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->text('content');
-            $table->date('publishDate');
+            $table->timestamp('publishDate');
             $table->text('tweet_id')->nullable();
             $table->boolean('sent');
-            $table->integer('user_id')->unsigned(); 
+            $table->bigInteger('user_id')->unsigned();
         });
     }
-    
+
     /**
      * Reverse the migrations.
      *

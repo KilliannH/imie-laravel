@@ -14,7 +14,6 @@
                         </div>
                     @endif
 
-                    You are logged in!
                     <form method="POST" action="{{ route('post-new-tweet', [
                             'content' => 'content'
                         ]) }}">

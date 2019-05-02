@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 
 
 use App\Services\TweetService;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class GenerateTweetsController extends Controller
 {
@@ -21,6 +19,6 @@ class GenerateTweetsController extends Controller
         $number = $request->get('number');
         $service = new TweetService();
         $service->generateRandomTweets($number);
-        return Redirect()->route('home');
+        return Redirect()->route('home')->with('status', 'Génération des tweets effectuée.');
     }
 }

@@ -25,4 +25,9 @@ class DashboardController extends Controller
     {
         return view('home');
     }
+
+    public function postNewTweet(Request $request)
+    {
+        dd($request);
+    }
 }

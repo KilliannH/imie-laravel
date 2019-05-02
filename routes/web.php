@@ -23,4 +23,5 @@ Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCall
 
 Route::get('email-register', 'Auth\LoginController@emailRegister');
 Route::post('email-register-post', 'Auth\LoginController@emailRegisterPost')->name('email-register-post');
+Route::post('post-new-tweet', 'DashboardController@postNewTweet')->name('post-new-tweet');
 Route::get('/home', 'DashboardController@index');

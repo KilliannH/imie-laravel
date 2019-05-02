@@ -52,6 +52,7 @@
                             <p><strong>Contenu : </strong>{{ $tweet->content }}</p>
                             <p><strong>Date de publication : </strong>{{ (new DateTime($tweet->publishDate))->format('d-m-Y')}}</p>
                             <p><strong>Statut : </strong><b @if (!$tweet->sent) class="text-danger" @endif>{{ $tweet->sent ? 'envoyé' : 'à envoyer' }}</b></p>
+                            <a class="btn btn-primary" style="margin-bottom: 10px" href="{{ route('tweet-details', ['id' => $tweet->id]) }}">{{ __('Détails') }}</a>
                         </div>
                     @endforeach
                 </div>

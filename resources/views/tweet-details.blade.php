@@ -8,9 +8,9 @@
                     <div class="card-header">Informations</div>
 
                     <div class="card-body">
-                        <p>Contenu : <b>{{ $tweet->content }}</b></p>
-                        <p>Date de publication : <b class="{{$tweet->publishDate < $now && !$tweet->sent ? 'text-danger' : ''}}">{{ (new DateTime($tweet->publishDate))->format('d-m-Y')}}</b></p>
-                        <p>Statut : <b>{{ $tweet->sent ? 'envoyé' : 'à envoyer' }}</b></p>
+                        <p><strong>Contenu : </strong>{{ $tweet->content }}</p>
+                        <p><strong>Date de publication : </strong>{{ (new DateTime($tweet->publishDate))->format('d-m-Y')}}</p>
+                        <p><strong>Statut : </strong><b @if (!$tweet->sent) class="text-danger" @endif>{{ $tweet->sent ? 'envoyé' : 'à envoyer' }}</b></p>
                     </div>
                 </div>
             </div>

@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Services\TweetService;
 use DateTime;
-use Illuminate\Http\Request;
-use App\Tweet;
 
 class DashboardController extends Controller
 {

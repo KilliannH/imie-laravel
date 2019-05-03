@@ -12,8 +12,6 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use App\User;
 use Thujohn\Twitter\Facades\Twitter;
-use App\Services\TweetService;
-use DateTime;
 
 class TweeterJob implements ShouldQueue
 {
@@ -47,14 +45,27 @@ class TweeterJob implements ShouldQueue
                 'secret' => $user->token_secret
             ]
         );
-
         $ts = new TweetService();
         $tweets = $ts->getTweets();
-
         $now = new DateTime();
-
         foreach ($tweets as $tweet) {
             if (!$tweet->sent) {
                 if($tweet->publishDate < $now) {
                     try {
-
+                        $tw->postTweet(
+                            array(
+                                'status' => $tweet->content,
+                                'format' => 'json')
+                        );
+                        $tweet->sent = true;
+                        $tweet->save();
+                        // echo 'Tweet publié: ' + $tweet->content;
+                    } catch (Exception $e) {
+                        echo $e->getMessage();
+                        // exit(1);
+                    }
+                }
+            }
+        }
+    }
+}

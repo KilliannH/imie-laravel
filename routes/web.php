@@ -32,8 +32,6 @@ Route::get('/home', 'DashboardController@index')->name('home');
 Route::get('generate-tweets', 'GenerateTweetsController@form')->name('generate-tweets-form');
 Route::post('generate-tweets-post', 'GenerateTweetsController@submit')->name('generate-tweets-post');
 
-Route::get('/home', 'DashboardController@index');
-
 Route::get('twitterUserTimeLine', 'TwitterController@twitterUserTimeLine');
 Route::post('tweet', ['as'=>'post.tweet','uses'=>'TwitterController@tweet']);
 

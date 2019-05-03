@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Session;
 use Socialite;
 use Illuminate\Http\Request;
 use App\User;
@@ -69,7 +70,7 @@ class LoginController extends Controller
     //     return redirect()->action('Auth\LoginController@emailRegister');
     // }
 
-    public function handleProviderCallback(string $provider)
+    public function handleProviderCallback(string $provider, Request $request)
     {
         try {
             $user = Socialite::driver($provider)->user();

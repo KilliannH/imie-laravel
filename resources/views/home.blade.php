@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
+            <div class="card" style="margin-bottom: 30px">
                 <div class="card-header">Dashboard</div>
 
                 <div class="card-body">
@@ -14,7 +14,6 @@
                         </div>
                     @endif
 
-                    You are logged in!
                     <form method="POST" action="{{ route('post-new-tweet', [
                             'content' => 'content'
                         ]) }}">
@@ -45,13 +44,16 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Dashboard</div>
+                <div class="card-header">Tweets</div>
 
                 <div class="card-body">
                     @foreach ($tweets as $tweet)
-                        <p>Contenu : <b>{{ $tweet->content }}</b></p>
-                        <p>Date de publication : <b class="{{$tweet->publishDate < $now && !$tweet->sent ? 'text-danger' : ''}}">{{ (new DateTime($tweet->publishDate))->format('d-m-Y')}}</b></p>
-                        <p>Statut : <b>{{ $tweet->sent ? 'envoyé' : 'à envoyer' }}</b></p>
+                        <div class="tweet_wrapper" style="border-bottom: 1px solid rgba(0,0,0,.125); margin-bottom: 10px;">
+                            <p><strong>Contenu : </strong>{{ $tweet->content }}</p>
+                            <p><strong>Date de publication : </strong>{{ (new DateTime($tweet->publishDate))->format('d-m-Y')}}</p>
+                            <p><strong>Statut : </strong><b @if (!$tweet->sent) class="text-danger" @endif>{{ $tweet->sent ? 'envoyé' : 'à envoyer' }}</b></p>
+                            <a class="btn btn-primary" style="margin-bottom: 10px" href="{{ route('tweet-details', ['id' => $tweet->id]) }}">{{ __('Détails') }}</a>
+                        </div>
                     @endforeach
                 </div>
             </div>

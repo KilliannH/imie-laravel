@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Services\TweetService;
 use App\Tweet;
-use App\User;
 use Illuminate\Http\Request;
-use Laravel\Socialite\Facades\Socialite;
 
 class TweetController extends Controller
 {
@@ -36,8 +34,10 @@ class TweetController extends Controller
     public function postTweet(Request $request) {
         $user = auth()->user();
 
+        $val = $request->only('content');
+
 		$newTweet = new Tweet([
-			'content' => $request->content,
+			'content' => $request->$val['content'],
             'sent' => false
         ]);
 

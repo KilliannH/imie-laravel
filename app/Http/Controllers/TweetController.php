@@ -46,8 +46,8 @@ class TweetController extends Controller
         $newTweet->user()->associate($user);
         $newTweet->save();
 
-        $minutes = (strtotime($newTweet->publishedDate) - time()) / 60;
-        TweeterJob::dispatch($newTweet)->delay(now()->addMinutes($minutes));;
+        $minutes = (strtotime($newTweet->publishDate) - time()) / 60;
+        TweeterJob::dispatch($newTweet)->delay(now()->addMinutes($minutes));
 
         return redirect()->route('tweet-details', $newTweet->id);
     }

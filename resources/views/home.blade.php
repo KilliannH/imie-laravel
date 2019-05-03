@@ -14,15 +14,13 @@
                         </div>
                     @endif
 
-                    <form method="POST" action="{{ route('post-new-tweet', [
-                            'content' => 'content'
-                        ]) }}">
+                    <form method="POST" action="{{ route('post-new-tweet') }}">
                         @csrf
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Message') }}</label>
 
                             <div class="col-md-6">
-                                <input id="content" type="text" class="form-control @error('name') is-invalid @enderror" name="content" value="{{ old('content') }}" required autocomplete="content" autofocus>
+                                <input id="content" type="text" class="form-control @error('name') is-invalid @enderror" name="content" value="{{ old('content') }}" required autofocus>
 
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">

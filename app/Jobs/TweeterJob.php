@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Services\TweetService;
+use App\Tweet;
 use DateTime;
 use Exception;
 use Illuminate\Bus\Queueable;
@@ -17,16 +18,16 @@ class TweeterJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    protected $user;
+    protected $tweet;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(User $user)
+    public function __construct(Tweet $tweet)
     {
-        $this->user = $user;
+        $this->tweet = $tweet;
     }
 
     /**
@@ -37,9 +38,10 @@ class TweeterJob implements ShouldQueue
     public function handle()
     {
         // make tweets from json works here
-        $user = $this->user;
-        $tw = new Twitter();
-        $tw = Twitter::reconfig(
+        $user = $this->tweet->user()->first();
+
+//        $tw = new Twitter();
+        Twitter::reconfig(
             [
                 'token' => $user->token,
                 'secret' => $user->token_secret
@@ -52,7 +54,7 @@ class TweeterJob implements ShouldQueue
             if (!$tweet->sent) {
                 if($tweet->publishDate < $now) {
                     try {
-                        $tw->postTweet(
+                        Twitter::postTweet(
                             array(
                                 'status' => $tweet->content,
                                 'format' => 'json')

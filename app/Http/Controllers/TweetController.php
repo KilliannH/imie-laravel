@@ -34,7 +34,6 @@ class TweetController extends Controller
 
     public function postTweet(Request $request) {
         $user = auth()->user();
-        TweeterJob::dispatch($user);
         $val = $request->only('content');
 
 		$newTweet = new Tweet([
@@ -44,6 +43,8 @@ class TweetController extends Controller
 
         $newTweet->user()->associate($user);
         $newTweet->save();
+
+        TweeterJob::dispatch($newTweet);
 
         return redirect()->route('tweet-details', $newTweet->id);
     }

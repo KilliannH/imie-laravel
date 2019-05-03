@@ -12,7 +12,8 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
-    @stack('head')
+    <link href="{{ asset('css/dashboard.css') }}" rel="stylesheet">
+    <script src="{{ asset('js/dashboard.js')}}"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">

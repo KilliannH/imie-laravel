@@ -51,7 +51,7 @@
                         <div class="tweet_wrapper" style="border-bottom: 1px solid rgba(0,0,0,.125); margin-bottom: 10px;">
                             <p><strong>Contenu : </strong>{{ $tweet->content }}</p>
                             <p><strong>Date de publication : </strong>{{ (new DateTime($tweet->publishDate))->format('d-m-Y')}}</p>
-                            <p><strong>Statut : </strong><b @if (!$tweet->sent) class="text-danger" @endif>{{ $tweet->sent ? 'envoyé' : 'à envoyer' }}</b></p>
+                            <p><strong>Statut : </strong><b @if (!$tweet->sent) class="text-danger" @else class="text-success" @endif>{{ $tweet->sent ? 'envoyé' : 'à envoyer' }}</b></p>
                             <a class="btn btn-primary" style="margin-bottom: 10px" href="{{ route('tweet-details', ['id' => $tweet->id]) }}">{{ __('Détails') }}</a>
                         </div>
                     @endforeach

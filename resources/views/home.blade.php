@@ -61,3 +61,10 @@
     </div>
 </div>
 @endsection
+
+@push('head')
+    <!-- Styles -->
+    <link href="{{ asset('css/dashboard.css') }}" rel="stylesheet">
+    <!-- Scripts -->
+    <script src="{{ asset('js/components/dashboard.js')}}"></script>
+@endpush

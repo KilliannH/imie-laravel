@@ -2,6 +2,9 @@
 
 namespace App\Jobs;
 
+use App\Services\TweetService;
+use DateTime;
+use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -29,6 +32,34 @@ class tweeterJob implements ShouldQueue
      */
     public function handle()
     {
-        //
+        $tweetservice = new TweetService();
+
+        $tweets = $tweetservice->getTweets();
+
+        $now = new DateTime();
+
+        foreach ($tweets as $tweet) {
+            if (!$tweet->sent) {
+                if($tweet->publishDate < $now) {
+                    try {
+                        Twitter::postTweet(
+                            array(
+                                'status' => $tweet->content,
+                                'format' => 'json')
+                        );
+
+                        $tweet->sent = true;
+                        $tweet->save();
+
+                        // echo 'Tweet publié: ' + $tweet->content;
+
+                    } catch (Exception $e) {
+                        echo $e->getMessage();
+                        // exit(1);
+                    }
+                }
+            }
+
+        }
     }
 }

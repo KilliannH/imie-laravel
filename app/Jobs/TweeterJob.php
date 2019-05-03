@@ -47,7 +47,7 @@ class TweeterJob implements ShouldQueue
                 'secret' => $user->token_secret
             ]
         );
-        $ts = new TweetService();
+        /*$ts = new TweetService();
         $tweets = $ts->getTweets();
         $now = new DateTime();
         foreach ($tweets as $tweet) {
@@ -68,6 +68,8 @@ class TweeterJob implements ShouldQueue
                     }
                 }
             }
-        }
+        }*/
+
+        $newTweet = Twitter::postTweet(['status' => $this->tweet->content, 'format' => 'json']);
     }
 }

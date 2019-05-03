@@ -10,6 +10,11 @@ use Illuminate\Http\Request;
 class GenerateTweetsController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function form () {
         return view('generate-tweets-form');
     }

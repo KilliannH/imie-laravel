@@ -1,7 +1,5 @@
 <?php
 
-// You can find the keys here : https://apps.twitter.com/
-
 return [
 	'debug'               => function_exists('env') ? env('APP_DEBUG', false) : false,
 

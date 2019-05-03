@@ -52,7 +52,6 @@ class TweetController extends Controller
         return redirect()->route('tweet-details', $newTweet->id);
     }
 
-    // neither here
     public function putTweet(Request $request, $id) {
         $editedTweet = Tweet::find($id)->first();
         if(!$editedTweet) {

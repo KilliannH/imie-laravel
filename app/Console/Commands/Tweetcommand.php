@@ -50,37 +50,28 @@ class Tweetcommand extends Command
 
         $now = new DateTime();
 
-        $tweetSorted = [];
-
         foreach ($tweets as $tweet) {
             if (!$tweet->sent) {
-                try {
-                    // $date = new DateTime($tweet->publishDate);
-                    Twitter::postTweet(
-                        array(
-                            'status' => $tweet->content,
-                            'format' => 'json')
-                    );
+                if($tweet->publishDate < $now) {
+                    try {
+                        Twitter::postTweet(
+                            array(
+                                'status' => $tweet->content,
+                                'format' => 'json')
+                        );
 
-                    // $tweet->sent = 1;
-                    // $tweet->save();
-                    // echo 'Tweet publié: ' + $tweet->content;
-                } catch (Exception $e) {
-                    echo $e->getMessage();
-                    // exit(1);
+                        $tweet->sent = true;
+                        $tweet->save();
+
+                        // echo 'Tweet publié: ' + $tweet->content;
+
+                    } catch (Exception $e) {
+                        echo $e->getMessage();
+                        // exit(1);
+                    }
                 }
-
-
-                // if($date < $now) {
-                //     array_push($tweetSorted, $tweet);
-
-                //     $data = Twitter::getUserTimeline(['count' => 10, 'format' => 'array']);
-
-                //     dd($data);
-                // }
             }
 
         }
-        // all tweets needed to be published
     }
 }

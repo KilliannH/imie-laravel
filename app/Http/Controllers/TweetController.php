@@ -37,7 +37,7 @@ class TweetController extends Controller
         $val = $request->only('content');
 
 		$newTweet = new Tweet([
-			'content' => $request->$val['content'],
+			'content' => $val['content'],
             'sent' => false
         ]);
 

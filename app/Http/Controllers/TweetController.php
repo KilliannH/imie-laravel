@@ -34,10 +34,12 @@ class TweetController extends Controller
 
     public function postTweet(Request $request) {
         $user = auth()->user();
-        $val = $request->only('content');
+        $content = $request->get('content');
+        $publishDate = $request->get('date');
 
 		$newTweet = new Tweet([
-			'content' => $val['content'],
+			'content' => $content,
+            'publishDate' => $publishDate,
             'sent' => false
         ]);
 

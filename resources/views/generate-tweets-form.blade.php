@@ -15,7 +15,7 @@
                             <label for="number" class="col-md-4 col-form-label text-md-right">{{ __('Nombre') }}</label>
 
                             <div class="col-md-6">
-                                <input id="number" type="number" class="form-control @error('number') is-invalid @enderror" name="number" required autofocus>
+                                <input id="number" type="number" value="0" min="0" class="form-control @error('number') is-invalid @enderror" name="number" required autofocus>
 
                                 @error('number')
                                 <span class="invalid-feedback" role="alert">

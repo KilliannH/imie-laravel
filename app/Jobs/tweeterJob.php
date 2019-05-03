@@ -2,6 +2,9 @@
 
 namespace App\Jobs;
 
+use App\Services\TweetService;
+use DateTime;
+use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -54,8 +57,12 @@ class TweeterJob implements ShouldQueue
             if (!$tweet->sent) {
                 if($tweet->publishDate < $now) {
                     try {
+<<<<<<< HEAD
                         dd($tw, $user);
                         $tw->postTweet(
+=======
+                        Twitter::postTweet(
+>>>>>>> 74abd7130f4d625a64293192f1cfde7a20054884
                             array(
                                 'status' => $tweet->content,
                                 'format' => 'json')

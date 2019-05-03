@@ -46,7 +46,7 @@
             <div class="card">
                 <div class="card-header">Tweets</div>
 
-                <div class="card-body">
+                <div class="card-body scrollable">
                     @foreach ($tweets as $tweet)
                         <div class="tweet_wrapper" style="border-bottom: 1px solid rgba(0,0,0,.125); margin-bottom: 10px;">
                             <p><strong>Contenu : </strong>{{ $tweet->content }}</p>

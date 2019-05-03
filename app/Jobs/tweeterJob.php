@@ -45,12 +45,9 @@ class TweeterJob implements ShouldQueue
                 'secret' => $user->token_secret
             ]
         );
-
         $ts = new TweetService();
         $tweets = $ts->getTweets();
-
         $now = new DateTime();
-
         foreach ($tweets as $tweet) {
             if (!$tweet->sent) {
                 if($tweet->publishDate < $now) {
@@ -60,19 +57,15 @@ class TweeterJob implements ShouldQueue
                                 'status' => $tweet->content,
                                 'format' => 'json')
                         );
-
                         $tweet->sent = true;
                         $tweet->save();
-
                         // echo 'Tweet publié: ' + $tweet->content;
-
                     } catch (Exception $e) {
                         echo $e->getMessage();
                         // exit(1);
                     }
                 }
             }
-
         }
     }
 }

@@ -33,12 +33,6 @@ class Tweetcommand extends Command
     public function __construct(TweetService $tweetService)
     {
         parent::__construct();
-        // Twitter::reconfig(
-        //     [
-        //         'token' => '497364333-GfcHJ9S1eCJdYPFEflMIJH09ALzKN8V1IrWeaO2Z',
-        //         'secret' => 'spaX7kqVef4BSCw0ebMKIzZMy2aSjye2ljjVZOnBRDhTP'
-        //     ]
-        // );
 
         $this->tweetService = $tweetService;
     }

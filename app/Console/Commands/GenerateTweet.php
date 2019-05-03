@@ -50,7 +50,7 @@ class GenerateTweet extends Command
         }
 
         $service = new TweetService();
-        $service->generateRandomTweets($number);
+//        $service->generateRandomTweets($number, );
 
         $this->info($number . ' tweet(s) generated');
 

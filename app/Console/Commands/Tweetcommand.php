@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 use App;
-use Thujohn\Twitter\Facades\Twitter;
+use Twitter;
 use App\Services\TweetService;
 use DateTime;
 use Exception;
@@ -10,6 +10,7 @@ use Illuminate\Console\Command;
 
 class Tweetcommand extends Command
 {
+    private $tweetService;
     /**
      * The name and signature of the console command.
      *
@@ -29,10 +30,11 @@ class Tweetcommand extends Command
      *
      * @return void
      */
-    public function __construct()
-    {   
+    public function __construct(TweetService $tweetService)
+    {
         parent::__construct();
-        Twitter::reconfig(['token' => '1108600526-99WKqQUKy8YcUWADCR1E3ptpOaXF3851dUMR148', 'secret' => 'ViM4HySAvTTxlVAiPFwnTsYEuqaT2y1qzs2ySQSmDRV1t']);
+
+        $this->tweetService = $tweetService;
     }
 
     /**
@@ -44,8 +46,7 @@ class Tweetcommand extends Command
     {
         // make tweets from json works here
 
-        $service = new TweetService();
-        $tweets = $service->getTweets();
+        $tweets = $this->tweetService->getTweets();
 
         $now = new DateTime();
 
@@ -65,12 +66,12 @@ class Tweetcommand extends Command
                     array_push($tweetSorted, $tweet);
 
                     $data = Twitter::getUserTimeline(['count' => 10, 'format' => 'array']);
-                    
+
                     dd($data);
                 }
             }
         }
         dd($tweetSorted);
-        // all tweets needed to be published 
+        // all tweets needed to be published
     }
 }

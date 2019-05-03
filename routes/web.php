@@ -35,3 +35,7 @@ Route::post('generate-tweets-post', 'GenerateTweetsController@submit')->name('ge
 Route::get('twitterUserTimeLine', 'TwitterController@twitterUserTimeLine');
 Route::post('tweet', ['as'=>'post.tweet','uses'=>'TwitterController@tweet']);
 
+Route::get('/tweeter', function()
+{
+    return Twitter::postTweet(array('status' => 'Tweet sent using Laravel and the Twitter API!', 'format' => 'json'));
+});

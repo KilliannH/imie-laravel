@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Support\Facades\Session;
 use Socialite;
 use Illuminate\Http\Request;
 use App\User;
@@ -57,20 +56,7 @@ class LoginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    // public function handleProviderCallback($provider)
-    // {
-    //     $user = Socialite::driver($provider)->user();
-    //     $userData = [
-    //         'token' => $user->token,
-    //         'tokenSecret' => $user->tokenSecret,
-    //         'id' => $user->id,
-    //         'name' => $user->name
-    //     ];
-    //     session($userData);
-    //     return redirect()->action('Auth\LoginController@emailRegister');
-    // }
-
-    public function handleProviderCallback(string $provider, Request $request)
+    public function handleProviderCallback(string $provider)
     {
         try {
             $user = Socialite::driver($provider)->user();

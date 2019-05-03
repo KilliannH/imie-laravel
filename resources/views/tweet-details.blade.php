@@ -10,7 +10,7 @@
                     <div class="card-body">
                         <p><strong>Contenu : </strong>{{ $tweet->content }}</p>
                         <p><strong>Date de publication : </strong>{{ (new DateTime($tweet->publishDate))->format('d-m-Y')}}</p>
-                        <p><strong>Statut : </strong><b @if (!$tweet->sent) class="text-danger" @endif>{{ $tweet->sent ? 'envoyé' : 'à envoyer' }}</b></p>
+                        <p><strong>Statut : </strong><b @if (!$tweet->sent) class="text-danger" @else class="text-success" @endif>{{ $tweet->sent ? 'envoyé' : 'à envoyer' }}</b></p>
                     </div>
                 </div>
             </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\TweetService;
 use App\Tweet;
 use Illuminate\Http\Request;
+use App\Jobs\TweeterJob;
 
 class TweetController extends Controller
 {
@@ -33,11 +34,11 @@ class TweetController extends Controller
 
     public function postTweet(Request $request) {
         $user = auth()->user();
-
+        TweeterJob::dispatch($user);
         $val = $request->only('content');
 
 		$newTweet = new Tweet([
-			'content' => $request->$val['content'],
+			'content' => $val['content'],
             'sent' => false
         ]);
 

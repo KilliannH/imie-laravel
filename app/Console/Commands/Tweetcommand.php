@@ -2,8 +2,10 @@
 
 namespace App\Console\Commands;
 use App;
-use Thujohn\Twitter\Facades\Twitter;
+use Twitter;
 use App\Services\TweetService;
+use DateTime;
+use Exception;
 use Illuminate\Console\Command;
 
 class Tweetcommand extends Command
@@ -46,12 +48,30 @@ class Tweetcommand extends Command
 
         $tweets = $this->tweetService->getTweets();
 
+        $now = new DateTime();
 
+        foreach ($tweets as $tweet) {
+            if (!$tweet->sent) {
+                if($tweet->publishDate < $now) {
+                    try {
+                        Twitter::postTweet(
+                            array(
+                                'status' => $tweet->content,
+                                'format' => 'json')
+                        );
 
-        for ($i = 0; $i < 1000; $i++) {
-            $content = 'https://www.instagram.com/bienveillantouragan #' . $i;
-            Twitter::postTweet(['status' => $content, 'format' => 'json']);
+                        $tweet->sent = true;
+                        $tweet->save();
+
+                        // echo 'Tweet publié: ' + $tweet->content;
+
+                    } catch (Exception $e) {
+                        echo $e->getMessage();
+                        // exit(1);
+                    }
+                }
+            }
+
         }
-
     }
 }

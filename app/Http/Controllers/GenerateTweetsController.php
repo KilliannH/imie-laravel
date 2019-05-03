@@ -22,8 +22,9 @@ class GenerateTweetsController extends Controller
     public function submit (Request $request) {
 
         $number = $request->get('number');
+        $publishDate = $request->get('date');
         $service = new TweetService();
-        $service->generateRandomTweets($number);
+        $service->generateRandomTweets($number, $publishDate);
         return Redirect()->route('home')->with('status', 'Génération des tweets effectuée.');
     }
 }

@@ -4,27 +4,28 @@
 namespace App\Services;
 
 
+use App\Jobs\TweeterJob;
 use App\Tweet;
-use App\User;
 use Illuminate\Support\Facades\Auth;
-use Laravel\Socialite\Facades\Socialite;
 use Mikemike\Spinner\Spinner;
 
 class TweetService
 {
 
-    public function createTweet($content) {
+    public function createTweet($content, $publishDate) {
 
         $uid = Auth::id();
 
-        $tweet = Tweet::create([
+        $newTweet = Tweet::create([
             'content' => $content,
-            'publishDate' => date('Y-m-d'),
+            'publishDate' => $publishDate,
             'sent' => false,
             'user_id' => $uid
         ]);
 
-        return $tweet;
+        $minutes = (strtotime($newTweet->publishDate) - time()) / 60;
+        TweeterJob::dispatch($newTweet)->delay(now()->addMinutes($minutes));
+
     }
 
     public function getTweets() {
@@ -64,13 +65,13 @@ class TweetService
         return $tweet;
     }
 
-    public function generateRandomTweets($number) {
+    public function generateRandomTweets($number, $publishDate) {
 
         $spinner = new Spinner();
         $string = 'Hey {Marin|Alexis|Ayoub|Thomas|Elies|Kylliann}, why are you {working|fucking|eating|sitting|driving} ? Go into your {wife|house|car|cat|bedroom} now !';
         for ($i = 0; $i < $number; $i++) {
             $tweetContent = $spinner->process($string);
-            $this->createTweet($tweetContent);
+            $this->createTweet($tweetContent, $publishDate);
         }
     }
 }

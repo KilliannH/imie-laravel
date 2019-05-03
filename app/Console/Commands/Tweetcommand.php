@@ -31,9 +31,14 @@ class Tweetcommand extends Command
      * @return void
      */
     public function __construct(TweetService $tweetService)
-    {   
+    {
         parent::__construct();
-        Twitter::reconfig(['token' => '497364333-GfcHJ9S1eCJdYPFEflMIJH09ALzKN8V1IrWeaO2Z', 'secret' => 'spaX7kqVef4BSCw0ebMKIzZMy2aSjye2ljjVZOnBRDhTP']);
+        // Twitter::reconfig(
+        //     [
+        //         'token' => '497364333-GfcHJ9S1eCJdYPFEflMIJH09ALzKN8V1IrWeaO2Z',
+        //         'secret' => 'spaX7kqVef4BSCw0ebMKIzZMy2aSjye2ljjVZOnBRDhTP'
+        //     ]
+        // );
 
         $this->tweetService = $tweetService;
     }
@@ -67,12 +72,12 @@ class Tweetcommand extends Command
                     array_push($tweetSorted, $tweet);
 
                     $data = Twitter::getUserTimeline(['count' => 10, 'format' => 'array']);
-                    
+
                     dd($data);
                 }
             }
         }
         dd($tweetSorted);
-        // all tweets needed to be published 
+        // all tweets needed to be published
     }
 }

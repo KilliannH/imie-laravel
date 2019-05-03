@@ -56,19 +56,6 @@ class LoginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    // public function handleProviderCallback($provider)
-    // {
-    //     $user = Socialite::driver($provider)->user();
-    //     $userData = [
-    //         'token' => $user->token,
-    //         'tokenSecret' => $user->tokenSecret,
-    //         'id' => $user->id,
-    //         'name' => $user->name
-    //     ];
-    //     session($userData);
-    //     return redirect()->action('Auth\LoginController@emailRegister');
-    // }
-
     public function handleProviderCallback(string $provider)
     {
         try {
